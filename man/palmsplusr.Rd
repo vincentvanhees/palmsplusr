@@ -3,7 +3,6 @@
 \docType{package}
 \name{palmsplusr}
 \alias{palmsplusr}
-\alias{palmsplusr-package}
 \title{palmsplusr}
 \description{
 This package is a rewrite of palmsplus in r

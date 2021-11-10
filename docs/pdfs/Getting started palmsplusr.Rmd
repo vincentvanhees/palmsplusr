@@ -10,7 +10,7 @@ output: pdf_document
 ## Loading the PALMS dataset {#loading-palms}
 
 A PALMS dataset (in csv format) is read in using the `read_palms()` function. This function checks that all required column names are present before converting the csv file to a simple features (spatial) object. If any columns are missing you will receive an error message. For a list of required column names, please see the `read_palms()` help file. This example will use the data built into this package, which has been collected from one participant.
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, eval=FALSE}
 library(palmsplusr)
 
 palms <- read_palms(system.file("extdata", "one_participant.csv", package = "palmsplusr"))
@@ -34,7 +34,7 @@ plot(palms[, c("activity", "tripnumber")])
 The palmsplus build process adds additional columns (i.e., *fields*) to the input `palms` dataset shown above. However, the user needs to specify what columns to add, and how to calculate them. This is done by creating a table with the name of the new column and the formula used to calculate it. In most cases, new fields are calculated from combinations of existing fields, but external data may also be used (see next section).
 
 The function `palms_add_field(name, formula, domain_field = FALSE)` is used to add a field:
-```{r}
+```{r, eval=FALSE}
   palms_add_field("weekday",    "dow < 6")
   palms_add_field("weekend",    "dow > 5")
   palms_add_field("indoors",    "iov == 3")
@@ -81,12 +81,12 @@ plot(home.points[, "home_id"], col = "red", add = TRUE)
 
 Below, these polygon data are used to create a new field called *at_home*. The purpose of this field is to identify any `palms` point that fall inside these home.buffer polygons. This information is later used to determine the time spent at home each day, and even identify trips that start or end at home. The formula for this field uses the `palms_in_polygon()` helper function. For a more detailed explanation about helper functions and creating formulas in general, please see [the building formulas article](https://thets.github.io/palmsplusr/articles/article-3-building-formulas.html).
 
-```{r}
+```{r, eval=FALSE}
 palms_add_field("at_home", "palms_in_polygon(., home.buffer, identifier)")
 ```
 
 Once all of the fields have been added, you can build the `palmsplus` dataset using the `palms_build_palmsplus()` function. This takes the `palms` dataset as input:
-```{r}
+```{r, eval=FALSE}
 palmsplus <- palms_build_palmsplus(palms)
 ```
 
@@ -94,7 +94,7 @@ palmsplus <- palms_build_palmsplus(palms)
 
 When printing the column names of the `palmsplus` dataset, you will notice it contains 30 columns: the original 13 in `palms` plus the 17 that were added as fields:
 
-```{r}
+```{r, eval=FALSE}
 names(palmsplus)
 ```
 
@@ -125,7 +125,7 @@ Each of the `domain_fields` are summarized separately for each domain. By defaul
 
 Two additional domains are added below: *home* and *transport*. All `palmsplus` points that meet the `at_home` criteria (the field added above) will be added to the *home* domain. All `palmsplus` points that meet the `pedestrian` or `bicycle` or `vehicle` criteria (also fields added above) will be assigned to the transport domain. Domains are added the same way fields are added:
 
-```{r}
+```{r, eval=FALSE}
 palms_add_domain("home", "at_home")
 palms_add_domain("transport", "!home & (pedestrian | bicycle | vehicle)")
 ```

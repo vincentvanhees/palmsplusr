@@ -29,7 +29,7 @@ devtools::install_github("tidyverse/ggplot2")
 
 The `geom_sf` is a new ggplot2 geom specifically for plotting simple features. You can plot points, lines, and polygons. Here is an example plotting one participant's trajcetories, school and home on a map.
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, eval=FALSE}
 library(palmsplusr)
 library(ggplot2)
 

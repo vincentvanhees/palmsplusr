@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(rmarkdown.html_vignette.check_title = FALSE)
 ```
 
 This article will demonstrate a real world example with a 191-participant dataset.
@@ -22,7 +23,7 @@ This article will demonstrate a real world example with a 191-participant datase
 
 All data should be loaded at the beginning of the script. This includes the PALMS dataset, and any other shapefiles and csv files. Any preprocessing, such as buffering can also be done here.
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, eval=FALSE}
 library(palmsplusr)
 library(readr)
 
@@ -42,12 +43,12 @@ home.buffer <- palms_buffer(point = home, distance = 100, crs = 2193)
 ```
 
 The participant_basis file is used to link participant identifier with the correct school and classroom: 
-```{r}
+```{r, eval=FALSE}
 head(participant_basis, n = 5)
 ```
 
 The class_timetable file details start and end times for school and recess preiods, for each school/classroom combination:
-```{r}
+```{r, eval=FALSE}
 head(class_timetable, n = 5)
 ```
 
@@ -64,7 +65,7 @@ All formulas for building the `palmsplus`, `days`, `trajectories`, and `multimod
 
 The first three of these tables can be populated using the `palms_load_defaults()`. I use this function as a base, but then add additional fields that are specific to my dataset and research questions. To see a list of fields that are included by default, please see [the building formulas article](https://thets.github.io/palmsplusr/articles/article-3-building-formulas.html).
 
-```{r}
+```{r, eval=FALSE}
 # Remove all field tables that exist
 palms_remove_tables()
 
@@ -97,7 +98,7 @@ I didn't specify any additional `trajectory_fields` or `multimodal_fields` as th
 
 Once all of the formula tables are created, the datasets can be built. I've included a timer here to see how long it takes to process:
 
-```{r}
+```{r, eval=FALSE}
 # Start the timer
 t <- proc.time()
 

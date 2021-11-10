@@ -4,8 +4,12 @@
 \alias{palms_build_multimodal}
 \title{Build multimodal trips from trajectories}
 \usage{
-palms_build_multimodal(data, spatial_threshold, temporal_threshold,
-  verbose = TRUE)
+palms_build_multimodal(
+  data,
+  spatial_threshold,
+  temporal_threshold,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{data}{The trajectories object built with \code{palms_calc_trajectories}.}
