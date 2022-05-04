@@ -8,6 +8,7 @@ palms_build_multimodal(
   data,
   spatial_threshold,
   temporal_threshold,
+  palmsplus = NULL,
   verbose = TRUE,
   config_file = NULL,
   palmsplus_copy = NULL
@@ -19,6 +20,8 @@ palms_build_multimodal(
 \item{spatial_threshold}{Spatial threshold in meters}
 
 \item{temporal_threshold}{Temporal threshold in minutes}
+
+\item{palmsplus}{palmsplus object previously derived}
 
 \item{verbose}{Print progress after each step. Default is \code{TRUE}.}
 

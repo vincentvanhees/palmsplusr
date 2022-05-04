@@ -6,6 +6,7 @@
 #' @param data The trajectories object built with \code{palms_calc_trajectories}.
 #' @param spatial_threshold Spatial threshold in meters
 #' @param temporal_threshold Temporal threshold in minutes
+#' @param palmsplus palmsplus object previously derived
 #' @param verbose Print progress after each step. Default is \code{TRUE}.
 #' @param config_file Path to the config file
 #' @param palmsplus_copy When using config files, a copy of the palmsplus dataframe is passed to this function (future use)
@@ -39,6 +40,7 @@
 palms_build_multimodal <- function(data,
                                    spatial_threshold,
                                    temporal_threshold,
+                                   palmsplus = NULL,
                                    verbose = TRUE,
                                    config_file = NULL,
                                    palmsplus_copy = NULL) {
