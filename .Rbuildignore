@@ -1,14 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
-^README-.*\.png$
 ^docs$
-^plots$
-^test.R$
 ^pkgdown$
 ^_pkgdown.yaml
-^\.github
 references.bib
-index.Rmd
-tests/test1.R
-tests/test2.R
+^index\.Rmd$
