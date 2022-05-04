@@ -21,8 +21,6 @@ palms_build_multimodal(
 
 \item{temporal_threshold}{Temporal threshold in minutes}
 
-\item{palmsplus}{palmsplus object previously derived}
-
 \item{verbose}{Print progress after each step. Default is \code{TRUE}.}
 
 \item{config_file}{Path to the config file}
