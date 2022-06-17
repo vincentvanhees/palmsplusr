@@ -172,7 +172,8 @@ palms_buffer <- function(point, distance = 100, crs = 2193) {
 #'
 #' @description Returns a logical vector the length of the input \code{data}
 #' points. This checks if each point falls inside \code{polygon}. Multiple
-#' polygons are supported (e.g., multiple homes, or parks).
+#' polygons are supported (e.g., multiple homes, or parks). If the \code{polygon}
+#' data is empty, \code{NA} will be returned.
 #'
 #' @param data The data points.
 #' @param polygons The polygon feature.
@@ -194,6 +195,13 @@ palms_buffer <- function(point, distance = 100, crs = 2193) {
 #'
 #' @export
 palms_in_polygon <- function(data, polygons, collapse_var = NULL){
+
+  if (nrow(polygons) < 1) {
+    message("palms_in_polygon: Polygon data has 0 rows, returning NA")
+    return(NA)
+  }
+
+  polygons <- st_make_valid(polygons)
 
   collapse_var <- quo_text(enquo(collapse_var))
 
@@ -354,7 +362,7 @@ palms_load_defaults <- function(epoch_length) {
   palms_add_trajectory_field("moderate",  paste0("sum(activityintensity == 2) * ", epoch_length))
   palms_add_trajectory_field("vigorous",  paste0("sum(activityintensity == 3) * ", epoch_length))
   palms_add_trajectory_field("mvpa",      "moderate + vigorous")
-  palms_add_trajectory_field("length",    "as.numeric(st_length(.))",  TRUE)
+  palms_add_trajectory_field("length",    "as.numeric(st_length(geometry))",  TRUE)
   palms_add_trajectory_field("speed",     "(length / duration) * 3.6", TRUE)
 
   # multimodal_fields

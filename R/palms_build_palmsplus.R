@@ -6,6 +6,7 @@
 #'
 #' @param data The PALMS data obtained using \code{\link{read_palms}}.
 #' @param verbose Print progress to console after each iteration. Default is \code{TRUE}.
+#' @param config_file Path to the config file
 #'
 #' @examples
 #' data("palms")
@@ -20,12 +21,26 @@
 #'
 #'
 #' @export
-palms_build_palmsplus <- function(data, verbose = TRUE) {
+palms_build_palmsplus <- function(data, config_file = NULL, verbose = TRUE) {
 
-  if (!exists("palmsplus_fields")) stop("No palmsplus fields have been added.")
+  if (!exists("palmsplus_fields") & is.null(config_file)) stop("No palmsplus fields have been added (and no config file specified)")
 
-  field_args <- setNames(palmsplus_fields[[2]], palmsplus_fields[[1]]) %>%
-    lapply(parse_expr)
+  # If using field tables
+  if (exists("palmsplus_fields") & is.null(config_file)) {
+    field_args <- setNames(palmsplus_fields[[2]], palmsplus_fields[[1]]) %>%
+      lapply(parse_expr)
+  }
+
+  # If using config file
+  if (!is.null(config_file)) {
+
+    config <- read_config(config_file) %>%
+      filter(context == 'palmsplus_field')
+
+    field_args <- setNames(config$formula, config$name) %>%
+      lapply(parse_expr)
+  }
+
 
   x <- list()
   j <- 1
